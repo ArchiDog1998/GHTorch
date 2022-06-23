@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <Version>1.0</Version>
+    <Title>GHTorch.Warpper</Title>
+    <Description>Description of GHTorch.Warpper</Description>
+    <TargetExt>.dll</TargetExt>
+    <PlatformTarget>x64</PlatformTarget>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="Grasshopper" Version="7.0.20314.3001" IncludeAssets="compile;build" />
+  </ItemGroup>
+  
+  <PropertyGroup Condition="$(Configuration) == 'Debug' AND $([MSBuild]::IsOSPlatform(Windows))">
+    <StartProgram>E:\Software\Rhino 7\System\Rhino.exe</StartProgram>
+    <StartArguments></StartArguments>
+    <StartAction>Program</StartAction>
+  </PropertyGroup>
+	
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<Exec Command="mkdir $(USERPROFILE)\AppData\Roaming\Grasshopper\Libraries\$(SolutionName)&#xD;&#xA;Copy &quot;$(TargetPath)&quot; &quot;$(USERPROFILE)\AppData\Roaming\Grasshopper\Libraries\$(SolutionName)\$(ProjectName).dll&quot;" />
+	</Target>
+
+</Project>

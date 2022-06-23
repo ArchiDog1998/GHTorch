@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "GHTorch.Warpper": {
+      "commandName": "Project",
+      "nativeDebugging": true
+    }
+  }
+}

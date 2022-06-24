@@ -5,12 +5,14 @@ VisualStudioVersion = 17.2.32602.215
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GHTorch", "GHTorch\GHTorch.csproj", "{CFF103FA-0A43-4BCC-ABA8-918FB4EC9488}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GHTorch.Warpper", "GHTorch.Warpper\GHTorch.Warpper.csproj", "{21900476-F4F4-4D61-BD6E-8A55BB1F5D21}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GHTorch.Wrapper", "GHTorch.Warpper\GHTorch.Wrapper.csproj", "{21900476-F4F4-4D61-BD6E-8A55BB1F5D21}"
 	ProjectSection(ProjectDependencies) = postProject
 		{9DD11B6B-D47A-4904-9BEA-A027DC77B341} = {9DD11B6B-D47A-4904-9BEA-A027DC77B341}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GHTorch.Native", "GHTorch.Native\GHTorch.Native.vcxproj", "{9DD11B6B-D47A-4904-9BEA-A027DC77B341}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GHTorch.Console", "GHTorch.Console\GHTorch.Console.vcxproj", "{3E29DB97-D31A-47A1-AC80-C6D4F11847F8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -58,6 +60,18 @@ Global
 		{9DD11B6B-D47A-4904-9BEA-A027DC77B341}.Release|x64.Build.0 = Release|x64
 		{9DD11B6B-D47A-4904-9BEA-A027DC77B341}.Release|x86.ActiveCfg = Release|Win32
 		{9DD11B6B-D47A-4904-9BEA-A027DC77B341}.Release|x86.Build.0 = Release|Win32
+		{3E29DB97-D31A-47A1-AC80-C6D4F11847F8}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{3E29DB97-D31A-47A1-AC80-C6D4F11847F8}.Debug|Any CPU.Build.0 = Debug|x64
+		{3E29DB97-D31A-47A1-AC80-C6D4F11847F8}.Debug|x64.ActiveCfg = Debug|x64
+		{3E29DB97-D31A-47A1-AC80-C6D4F11847F8}.Debug|x64.Build.0 = Debug|x64
+		{3E29DB97-D31A-47A1-AC80-C6D4F11847F8}.Debug|x86.ActiveCfg = Debug|Win32
+		{3E29DB97-D31A-47A1-AC80-C6D4F11847F8}.Debug|x86.Build.0 = Debug|Win32
+		{3E29DB97-D31A-47A1-AC80-C6D4F11847F8}.Release|Any CPU.ActiveCfg = Release|x64
+		{3E29DB97-D31A-47A1-AC80-C6D4F11847F8}.Release|Any CPU.Build.0 = Release|x64
+		{3E29DB97-D31A-47A1-AC80-C6D4F11847F8}.Release|x64.ActiveCfg = Release|x64
+		{3E29DB97-D31A-47A1-AC80-C6D4F11847F8}.Release|x64.Build.0 = Release|x64
+		{3E29DB97-D31A-47A1-AC80-C6D4F11847F8}.Release|x86.ActiveCfg = Release|Win32
+		{3E29DB97-D31A-47A1-AC80-C6D4F11847F8}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

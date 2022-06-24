@@ -1,23 +1,20 @@
 ﻿using System;
-using System.Linq;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
-using Grasshopper.Kernel;
-using Rhino.Geometry;
 using GHTorch.Parameters;
 using GHTorch.Types;
-using GHTorch.Wrapper;
+using Grasshopper.Kernel;
+using Rhino.Geometry;
 
 namespace GHTorch.Components
 {
-    public class Component_CreateTensor : Component_GHTorch
+    public class Component_TensorCUDA : Component_GHTorch
     {
         /// <summary>
-        /// Initializes a new instance of the CreateTensor class.
+        /// Initializes a new instance of the Component_TensorCUDA class.
         /// </summary>
-        public Component_CreateTensor()
-          : base("CreateTensor", "CTensor",
-              "Description", GHTorch.SubCategory.Tensor)
+        public Component_TensorCUDA()
+          : base("TensorCUDA", "CUDA",
+              "Conver a tensor into CUDA.", GHTorch.SubCategory.Tensor)
         {
         }
 
@@ -26,9 +23,7 @@ namespace GHTorch.Components
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddIntegerParameter("Size", "S", "Size", GH_ParamAccess.list, 1);
-            pManager.AddBooleanParameter("RequiresGrad", "R", "Requires Grad", GH_ParamAccess.item, false);
-            AddEnumParameter<CreateTensorFunction>(pManager, "TensorFunction", "F", "Create Tensor Function", GH_ParamAccess.item);
+            pManager.AddParameter(new Parameter_Tensor("Tensor", "T", "Tensor to create", GH_ParamAccess.item));
         }
 
         /// <summary>
@@ -45,16 +40,11 @@ namespace GHTorch.Components
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            List<int> list = new List<int>();
-            bool require = false;
-            int type = 0;
+            GH_Tensor tensor = null;
 
-            DA.GetDataList(0, list);
-            DA.GetData(1, ref require);
-            DA.GetData(2, ref type);
+            DA.GetData(0, ref tensor);
 
-
-            DA.SetData(0, new GH_Tensor(Tensor.CreateTensor((CreateTensorFunction) type, require, list.Select(i => (long)i).ToArray())));
+            DA.SetData(0, new GH_Tensor(tensor.Value.CUDA()));
         }
 
         /// <summary>
@@ -75,7 +65,7 @@ namespace GHTorch.Components
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("18E9896C-0FD3-474F-B1AA-2A2D94BAEBC2"); }
+            get { return new Guid("134A31D1-9519-4077-A54A-FC6995D70A14"); }
         }
     }
 }

@@ -21,32 +21,32 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{9dd11b6b-d47a-4904-9bea-a027dc77b341}</ProjectGuid>
-    <RootNamespace>GHTorchNative</RootNamespace>
+    <ProjectGuid>{3e29db97-d31a-47a1-ac80-c6d4f11847f8}</ProjectGuid>
+    <RootNamespace>GHTorchConsole</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -70,16 +70,16 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>$(ProjectDir)bin\$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(ProjectDir)bin\$(Configuration)\</OutDir>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(ProjectDir)bin\$(Configuration)\</OutDir>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(ProjectDir)bin\$(Configuration)\</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -88,7 +88,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>E:\Software\Pytorch\libtorch-win-shared-with-deps-1.11.0+cu113\libtorch\include\torch\csrc\api\include;E:\Software\Pytorch\libtorch-win-shared-with-deps-1.11.0+cu113\libtorch\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\Software\Pytorch\libtorch-win-shared-with-deps-1.11.0+cu113\libtorch\include\torch\csrc\api\include;E:\Software\Pytorch\libtorch-win-shared-with-deps-1.11.0+cu113\libtorch\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -97,9 +97,6 @@
       <AdditionalDependencies>E:\Software\Pytorch\libtorch-win-shared-with-deps-1.11.0+cu113\libtorch\lib\*.lib</AdditionalDependencies>
       <AdditionalOptions>/INCLUDE:?warp_size@cuda@at@@YAHXZ /INCLUDE:?_torch_cuda_cu_linker_symbol_op_cuda@native@at@@YA?AVTensor@2@AEBV32@@Z %(AdditionalOptions)</AdditionalOptions>
     </Link>
-    <PostBuildEvent>
-      <Command>Copy "$(TargetPath)" "E:\Software\Pytorch\libtorch-win-shared-with-deps-1.11.0+cu113\libtorch\lib\$(ProjectName).dll"</Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -109,7 +106,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>E:\Software\Pytorch\libtorch-win-shared-with-deps-1.11.0+cu113\libtorch\include\torch\csrc\api\include;E:\Software\Pytorch\libtorch-win-shared-with-deps-1.11.0+cu113\libtorch\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\Software\Pytorch\libtorch-win-shared-with-deps-1.11.0+cu113\libtorch\include\torch\csrc\api\include;E:\Software\Pytorch\libtorch-win-shared-with-deps-1.11.0+cu113\libtorch\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -120,9 +117,6 @@
       <AdditionalDependencies>E:\Software\Pytorch\libtorch-win-shared-with-deps-1.11.0+cu113\libtorch\lib\*.lib</AdditionalDependencies>
       <AdditionalOptions>/INCLUDE:?warp_size@cuda@at@@YAHXZ /INCLUDE:?_torch_cuda_cu_linker_symbol_op_cuda@native@at@@YA?AVTensor@2@AEBV32@@Z %(AdditionalOptions)</AdditionalOptions>
     </Link>
-    <PostBuildEvent>
-      <Command>Copy "$(TargetPath)" "E:\Software\Pytorch\libtorch-win-shared-with-deps-1.11.0+cu113\libtorch\lib\$(ProjectName).dll"</Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -130,7 +124,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>E:\Software\Pytorch\libtorch-win-shared-with-deps-1.11.0+cu113\libtorch\include\torch\csrc\api\include;E:\Software\Pytorch\libtorch-win-shared-with-deps-1.11.0+cu113\libtorch\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\Software\Pytorch\libtorch-win-shared-with-deps-1.11.0+cu113\libtorch\include\torch\csrc\api\include;E:\Software\Pytorch\libtorch-win-shared-with-deps-1.11.0+cu113\libtorch\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -139,9 +133,6 @@
       <AdditionalDependencies>E:\Software\Pytorch\libtorch-win-shared-with-deps-1.11.0+cu113\libtorch\lib\*.lib</AdditionalDependencies>
       <AdditionalOptions>/INCLUDE:?warp_size@cuda@at@@YAHXZ /INCLUDE:?_torch_cuda_cu_linker_symbol_op_cuda@native@at@@YA?AVTensor@2@AEBV32@@Z %(AdditionalOptions)</AdditionalOptions>
     </Link>
-    <PostBuildEvent>
-      <Command>Copy "$(TargetPath)" "E:\Software\Pytorch\libtorch-win-shared-with-deps-1.11.0+cu113\libtorch\lib\$(ProjectName).dll"</Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -151,7 +142,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>E:\Software\Pytorch\libtorch-win-shared-with-deps-1.11.0+cu113\libtorch\include\torch\csrc\api\include;E:\Software\Pytorch\libtorch-win-shared-with-deps-1.11.0+cu113\libtorch\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\Software\Pytorch\libtorch-win-shared-with-deps-1.11.0+cu113\libtorch\include\torch\csrc\api\include;E:\Software\Pytorch\libtorch-win-shared-with-deps-1.11.0+cu113\libtorch\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -162,15 +153,9 @@
       <AdditionalDependencies>E:\Software\Pytorch\libtorch-win-shared-with-deps-1.11.0+cu113\libtorch\lib\*.lib</AdditionalDependencies>
       <AdditionalOptions>/INCLUDE:?warp_size@cuda@at@@YAHXZ /INCLUDE:?_torch_cuda_cu_linker_symbol_op_cuda@native@at@@YA?AVTensor@2@AEBV32@@Z %(AdditionalOptions)</AdditionalOptions>
     </Link>
-    <PostBuildEvent>
-      <Command>Copy "$(TargetPath)" "E:\Software\Pytorch\libtorch-win-shared-with-deps-1.11.0+cu113\libtorch\lib\$(ProjectName).dll"</Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="TensorEditor.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="TensorEditor.h" />
+    <ClCompile Include="GHTorch.Console.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

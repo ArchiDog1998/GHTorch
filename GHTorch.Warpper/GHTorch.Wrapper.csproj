@@ -21,7 +21,7 @@
   </PropertyGroup>
 	
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
-		<Exec Command="mkdir $(USERPROFILE)\AppData\Roaming\Grasshopper\Libraries\$(SolutionName)&#xD;&#xA;Copy &quot;$(TargetPath)&quot; &quot;$(USERPROFILE)\AppData\Roaming\Grasshopper\Libraries\$(SolutionName)\$(ProjectName).dll&quot;" />
+		<Exec Command="Copy &quot;$(TargetPath)&quot; &quot;E:\Software\Pytorch\libtorch-win-shared-with-deps-1.11.0+cu113\libtorch\lib\$(ProjectName).dll&quot;" />
 	</Target>
 
 </Project>

@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GHTorch
+namespace GHTorch.Wrapper
 {
-    internal enum SubCategory
+    public enum CreateTensorFunction
     {
-        Tensor,
-        Params,
+        Random,
+        Ones,
+        Zeros,
     }
 }

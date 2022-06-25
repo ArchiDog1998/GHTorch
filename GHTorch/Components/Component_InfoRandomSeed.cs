@@ -1,23 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using GHTorch.Parameters;
-using GHTorch.Types;
 using GHTorch.Wrapper;
 using Grasshopper.Kernel;
 using Rhino.Geometry;
 
 namespace GHTorch.Components
 {
-    public class Component_CreateEyeTensor : Component_GHTorch
+    public class Component_InfoRandomSeed : Component_GHTorch
     {
-        public override GH_Exposure Exposure => GH_Exposure.primary;
-
         /// <summary>
-        /// Initializes a new instance of the Component_CreateEyeTensor class.
+        /// Initializes a new instance of the Component_InfoRandomSeed class.
         /// </summary>
-        public Component_CreateEyeTensor()
-          : base("Create Eye Tensor", "CEyeTensor",
-              "Create Eye Tensor", GHTorch.SubCategory.Tensor)
+        public Component_InfoRandomSeed()
+          : base("Set Random Seed", "Seed",
+              "Set Random Seed", GHTorch.SubCategory.Info)
         {
         }
 
@@ -26,18 +22,14 @@ namespace GHTorch.Components
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddTextParameter("N", "N", "N", GH_ParamAccess.item, "6");
-            pManager[pManager.AddTextParameter("M", "M", "M", GH_ParamAccess.item)].Optional = true;
-            pManager[pManager.AddParameter(new Parameter_TensorOption("Option", "O", "Option", GH_ParamAccess.item))].Optional = true;
-
+            pManager.AddTextParameter("Seed", "S", "Set Seed", GH_ParamAccess.item, "1");
         }
 
         /// <summary>
         /// Registers all the output parameters for this component.
         /// </summary>
-        protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
+        protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddParameter(new Parameter_Tensor("Tensor", "T", "Tensor to create", GH_ParamAccess.item));
         }
 
         /// <summary>
@@ -46,21 +38,14 @@ namespace GHTorch.Components
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            string n, m;
-            n = m = string.Empty;
-            GH_TensorOption option = new GH_TensorOption(TensorOption.DefaultOption);
+            string seed = String.Empty;
 
+            DA.GetData(0, ref seed);
 
-            DA.GetData(0, ref n);
-            if(!DA.GetData(1, ref m))
-            {
-                m = n;
-            }
-            DA.GetData(2, ref option);
-
-            DA.SetData(0, new GH_Tensor(Tensor.CreateTensorEye(option.Value, long.Parse(n), long.Parse(m))));
-
+            PytorchInfoEditor.SetRandomSeed(long.Parse(seed));
         }
+
+
 
         /// <summary>
         /// Provides an Icon for the component.
@@ -80,7 +65,7 @@ namespace GHTorch.Components
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("287760E5-8890-4075-82B9-61D07DCA8B79"); }
+            get { return new Guid("1418497A-104D-4CB4-A4D5-E3ADB347BB2B"); }
         }
     }
 }

@@ -51,12 +51,25 @@ namespace TensorEditor
 
 #pragma endregion
 
+#pragma region Modify
+	extern "C" __declspec(dllexport)
+		torch::Tensor * ChangeTensorOption(torch::Tensor * tensor,
+			int dtype, bool iskSparse, bool isCuda, int cudaIndex, bool requiresGrad);
+
+	extern "C" __declspec(dllexport)
+		torch::Tensor* TensorArithmetic(torch::Tensor* a, torch::Tensor* b, int type);
+
+	extern "C" __declspec(dllexport)
+		torch::Tensor * TensorTrigonometric(torch::Tensor * tensor, int type);
+#pragma endregion
+
+
 #pragma region Check
 	extern "C" __declspec(dllexport)
 		const char* TensorDescription(torch::Tensor * tensor);
 
 	extern "C" __declspec(dllexport)
-		const char* TensorRequiresGrad(torch::Tensor * tensor, std::string *&stringInt);
+		bool TensorRequiresGrad(torch::Tensor * tensor);
 
 	extern "C" __declspec(dllexport)
 		const char* TensorDataType(torch::Tensor * tensor, std::string * &stringInt);
@@ -67,12 +80,12 @@ namespace TensorEditor
 	extern "C" __declspec(dllexport)
 		const char* TensorLayout(torch::Tensor * tensor, std::string * &stringInt);
 
-	extern "C" __declspec(dllexport)
-		void DeleteString(std::string * boolInt);
 
 #pragma endregion
 
 
+	extern "C" __declspec(dllexport)
+		void DeleteString(std::string * boolInt);
 
 
 	c10::IntArrayRef GetIntArray(const int64_t* longarray, int count);

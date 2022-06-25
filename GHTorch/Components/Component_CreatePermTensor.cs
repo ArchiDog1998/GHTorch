@@ -10,7 +10,7 @@ namespace GHTorch.Components
 {
     public class Component_CreatePermTensor : Component_GHTorch
     {
-        public override GH_Exposure Exposure => GH_Exposure.primary;
+        public override GH_Exposure Exposure => GH_Exposure.primary | GH_Exposure.obscure;
 
         /// <summary>
         /// Initializes a new instance of the Component_CreatePermTensor class.
@@ -46,7 +46,7 @@ namespace GHTorch.Components
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             string n = String.Empty;
-            GH_TensorOption option = new GH_TensorOption(new TensorOption(TensorOption.DataType.Float32, false, true, 0, false));
+            GH_TensorOption option = new GH_TensorOption(TensorOption.DefaultOption);
 
 
             DA.GetData(0, ref n);

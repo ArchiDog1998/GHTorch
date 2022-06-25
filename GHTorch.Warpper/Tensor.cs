@@ -10,19 +10,29 @@ namespace GHTorch.Wrapper
 {
     public unsafe class Tensor 
     {
+        public enum ArithmeticType
+        {
+            Add,
+            Subtract,
+            Multiply,
+            Divide,
+        }
+
+        public enum TrigonometricType
+        {
+            Sin,
+            Cos,
+            Tan,
+            ASin,
+            ACos,
+            ATan,
+        }
+
         private IntPtr _handle;
 
         public string Description => IntPtrToString(NativeTensorEditor.TensorDescription(_handle));
 
-        private IntPtr _requiresGradInt = IntPtr.Zero;
-        public string ReuiqresGrad
-        {
-            get
-            {
-                if(_requiresGradInt != IntPtr.Zero) NativeTensorEditor.DeleteString(_requiresGradInt);
-                return IntPtrToString(NativeTensorEditor.TensorRequiresGrad(_handle, ref _requiresGradInt));
-            }
-        }
+        public bool ReuiqresGrad => NativeTensorEditor.TensorRequiresGrad(_handle);
 
         private IntPtr _dataTypeInt = IntPtr.Zero;
         public string DataType
@@ -72,7 +82,11 @@ namespace GHTorch.Wrapper
         }
 
         public Tensor Duplicate()=> new Tensor(NativeTensorEditor.DuplicateTensor(_handle));
-        
+        public Tensor ChangeTensorOption(TensorOption option)
+        {
+            return new Tensor(NativeTensorEditor.ChangeTensorOption(_handle,
+                (int)option.DataT, option.IsSparse, option.IsCUDA, option.CUDAIndex, option.RequiresGrad));
+        }
         private static string IntPtrToString(IntPtr strPtr) => Marshal.PtrToStringAnsi(strPtr);
 
         public static Tensor CreateTensorEmpty(TensorOption option, params long[] arrays)
@@ -121,6 +135,16 @@ namespace GHTorch.Wrapper
         {
             return new Tensor(NativeTensorEditor.TensorPerm(n,
                 (int)option.DataT, option.IsSparse, option.IsCUDA, option.CUDAIndex, option.RequiresGrad));
+        }
+
+        public static Tensor TensorArithmetic(Tensor a, Tensor b, ArithmeticType type)
+        {
+            return new Tensor(NativeTensorEditor.TensorArithmetic(a._handle, b._handle, (int)type));
+        }
+
+        public static Tensor TensorTrigonometric(Tensor tensor, TrigonometricType type)
+        {
+            return new Tensor(NativeTensorEditor.TensorTrigonometric(tensor._handle, (int)type));
         }
     }
 }

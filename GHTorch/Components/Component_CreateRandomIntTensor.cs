@@ -52,7 +52,7 @@ namespace GHTorch.Components
             List<string> list = new List<string>();
             string low, high;
             low = high = String.Empty;
-            GH_TensorOption option = new GH_TensorOption(new TensorOption(TensorOption.DataType.Float32, false, true, 0, false));
+            GH_TensorOption option = new GH_TensorOption(TensorOption.DefaultOption);
 
             DA.GetDataList(0, list);
             DA.GetData(1, ref low);

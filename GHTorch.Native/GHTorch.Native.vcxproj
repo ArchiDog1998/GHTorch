@@ -167,9 +167,11 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="PytorchInfo.cpp" />
     <ClCompile Include="TensorEditor.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="PytorchInfo.h" />
     <ClInclude Include="TensorEditor.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -1,22 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using GHTorch.Parameters;
-using GHTorch.Types;
+using GHTorch.Wrapper;
 using Grasshopper.Kernel;
 using Rhino.Geometry;
 
 namespace GHTorch.Components
 {
-    public class Component_CheckTensorInfomation : Component_GHTorch
-    {
-        public override GH_Exposure Exposure => GH_Exposure.tertiary;
-
+    public class Component_InfoCUDA : Component_GHTorch
+    { 
         /// <summary>
-        /// Initializes a new instance of the Component_CheckTensorInfomation class.
+        /// Initializes a new instance of the Component_InfoCUDA class.
         /// </summary>
-        public Component_CheckTensorInfomation()
-          : base("Tensor Infomation", "Tensor Info",
-              "Check Tensor Infomation", GHTorch.SubCategory.Tensor)
+        public Component_InfoCUDA()
+          : base("CUDA Info", "CUDA",
+              "CUDA Info", GHTorch.SubCategory.Info)
         {
         }
 
@@ -25,7 +22,6 @@ namespace GHTorch.Components
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddParameter(new Parameter_Tensor("Tensor", "T", "Tensor to create", GH_ParamAccess.item));
         }
 
         /// <summary>
@@ -33,11 +29,10 @@ namespace GHTorch.Components
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddTextParameter("Description", "D", "Desc", GH_ParamAccess.item);
-            pManager.AddBooleanParameter("RequiresGrad", "G", "Requires Grad", GH_ParamAccess.item);
-            pManager.AddTextParameter("DataType", "T", "Data Type", GH_ParamAccess.item);
-            pManager.AddTextParameter("Device", "D", "Device", GH_ParamAccess.item);
-            pManager.AddTextParameter("Layout", "L", "Layout", GH_ParamAccess.item);
+            pManager.AddBooleanParameter("IsCUDA", "C", "Is CUDA availble.", GH_ParamAccess.item);
+            pManager.AddBooleanParameter("Iscudnn", "C", "Is cudnn availble.", GH_ParamAccess.item);
+            pManager.AddTextParameter("CUDACount", "N", "The count of CUDA device.", GH_ParamAccess.item);
+
         }
 
         /// <summary>
@@ -46,14 +41,15 @@ namespace GHTorch.Components
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            GH_Tensor tensor = null;
-            DA.GetData(0, ref tensor);
+            bool cuda, cudnn;
+            cuda = cudnn = false;
+            ulong count =0;
 
-            DA.SetData(0, tensor.Value.Description);
-            DA.SetData(1, tensor.Value.ReuiqresGrad);
-            DA.SetData(2, tensor.Value.DataType);
-            DA.SetData(3, tensor.Value.Device);
-            DA.SetData(4, tensor.Value.Layout);
+            PytorchInfoEditor.GetCUDAInfo(ref cuda, ref cudnn, ref count);
+
+            DA.SetData(0, cuda);
+            DA.SetData(1, cudnn);
+            DA.SetData(2, count);
         }
 
         /// <summary>
@@ -74,7 +70,7 @@ namespace GHTorch.Components
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("C5412813-D003-4F91-97A2-447389EE5396"); }
+            get { return new Guid("BE127B90-1D88-4044-B011-6ECE645F19AC"); }
         }
     }
 }

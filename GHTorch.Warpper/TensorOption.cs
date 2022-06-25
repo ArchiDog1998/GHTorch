@@ -8,6 +8,9 @@ namespace GHTorch.Wrapper
 {
     public struct TensorOption
     {
+
+        public static readonly TensorOption DefaultOption = new TensorOption(TensorOption.DataType.Float32, false, true, 0, false);
+
         public enum DataType
         {
             UInt8,

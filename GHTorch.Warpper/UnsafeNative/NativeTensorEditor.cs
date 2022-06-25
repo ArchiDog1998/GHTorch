@@ -63,12 +63,25 @@ namespace GHTorch.Wrapper.UnsafeNative
 
         #endregion
 
+        #region Modify
+        [DllImport(dllName, CallingConvention = CallingConvention.Cdecl)]
+        internal static extern IntPtr ChangeTensorOption(
+            IntPtr tensor,
+            int dtype, bool iskSparse, bool isCuda, int cudaIndex, bool requiresGrad);
+
+        [DllImport(dllName, CallingConvention = CallingConvention.Cdecl)]
+        internal static extern IntPtr TensorArithmetic(IntPtr a, IntPtr b, int type);
+
+        [DllImport(dllName, CallingConvention = CallingConvention.Cdecl)]
+        internal static extern IntPtr TensorTrigonometric(IntPtr tensor, int type);
+        #endregion
+
         #region Check
         [DllImport(dllName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr TensorDescription(IntPtr tensor);
 
         [DllImport(dllName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern IntPtr TensorRequiresGrad(IntPtr tensor, ref IntPtr boolInt);
+        internal static extern bool TensorRequiresGrad(IntPtr tensor);
 
         [DllImport(dllName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr TensorDataType(IntPtr tensor, ref IntPtr boolInt);

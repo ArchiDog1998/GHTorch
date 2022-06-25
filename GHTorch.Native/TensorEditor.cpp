@@ -3,8 +3,6 @@
 namespace TensorEditor
 {
 
-
-
 #pragma region Create
 
 
@@ -113,6 +111,61 @@ namespace TensorEditor
 	}
 #pragma endregion
 
+#pragma region Modify
+	torch::Tensor* ChangeTensorOption(torch::Tensor* tensor,
+		int dtype, bool iskSparse, bool isCuda, int cudaIndex, bool requiresGrad) {
+
+		auto option = CreateTensorOptions(dtype, iskSparse, isCuda, cudaIndex, requiresGrad);
+		
+		auto newTensor = tensor->to(option.device(), option.dtype(), false, true);
+
+		//Need to change layout.
+
+		newTensor.requires_grad_(requiresGrad);
+
+		return CreateTensor(newTensor);
+
+	}
+
+	torch::Tensor* TensorArithmetic(torch::Tensor* a, torch::Tensor* b, int type) {
+		switch (type)
+		{
+		case 0:
+			return CreateTensor(a->add(*b));
+		case 1:
+			return CreateTensor(a->sub(*b));
+		case 2:
+			return CreateTensor(a->mul(*b));
+		case 3:
+			return CreateTensor(a->div(*b));
+
+		default:
+			return CreateTensor(*a);
+		}
+	}
+
+	torch::Tensor* TensorTrigonometric(torch::Tensor* tensor, int type) {
+		switch (type)
+		{
+		case 0:
+			return CreateTensor(tensor->sin());
+		case 1:
+			return CreateTensor(tensor->cos());
+		case 2:
+			return CreateTensor(tensor->tan());
+		case 3:
+			return CreateTensor(tensor->asin());
+		case 4:
+			return CreateTensor(tensor->acos());
+		case 5:
+			return CreateTensor(tensor->atan());
+		default:
+			return CreateTensor(*tensor);
+		}
+	}
+#pragma endregion
+
+
 #pragma region Check
 	const char* TensorDescription(torch::Tensor* tensor) {
 		std::ostringstream stream;
@@ -121,15 +174,9 @@ namespace TensorEditor
 		return tensor_string.c_str();
 	}
 
-	const char* TensorRequiresGrad(torch::Tensor* tensor, std::string*& stringInt) {
+	bool TensorRequiresGrad(torch::Tensor* tensor) {
 		std::ostringstream stream;
-		stream << tensor->requires_grad();
-		stringInt = new std::string(stream.str());
-		return (*stringInt).c_str();
-	}
-
-	void DeleteString(std::string* stringInt) {
-		delete stringInt;
+		return tensor->requires_grad();
 	}
 
 	const char* TensorDataType(torch::Tensor* tensor, std::string*& stringInt) {
@@ -214,6 +261,10 @@ namespace TensorEditor
 	c10::IntArrayRef GetIntArray(const int64_t* longarray, int count) {
 		std::initializer_list<int64_t> arr = std::initializer_list<int64_t>(longarray, &(longarray[count]));
 		return c10::IntArrayRef(arr);
+	}
+
+	void DeleteString(std::string* stringInt) {
+		delete stringInt;
 	}
 
 	//std::initializer_list<at::indexing::TensorIndex> GetTensorIndexArray(const int64_t* longarray, int count) {

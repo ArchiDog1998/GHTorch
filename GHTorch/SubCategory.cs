@@ -8,6 +8,7 @@ namespace GHTorch
 {
     internal enum SubCategory
     {
+        Info,
         Tensor,
         Params,
     }

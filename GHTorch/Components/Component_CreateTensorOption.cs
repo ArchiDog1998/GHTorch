@@ -1,22 +1,22 @@
 ﻿using System;
-using System.Linq;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
-using Grasshopper.Kernel;
-using Rhino.Geometry;
 using GHTorch.Parameters;
 using GHTorch.Types;
 using GHTorch.Wrapper;
+using Grasshopper.Kernel;
+using Rhino.Geometry;
 
 namespace GHTorch.Components
 {
-    public class Component_CreateTensor : Component_GHTorch
+    public class Component_CreateTensorOption : Component_GHTorch
     {
+        public override GH_Exposure Exposure => GH_Exposure.septenary;
+
         /// <summary>
-        /// Initializes a new instance of the CreateTensor class.
+        /// Initializes a new instance of the Component_CreateTensorOption class.
         /// </summary>
-        public Component_CreateTensor()
-          : base("CreateTensor", "CTensor",
+        public Component_CreateTensorOption()
+          : base("Create Tensor Option", "CTensorOption",
               "Description", GHTorch.SubCategory.Tensor)
         {
         }
@@ -26,9 +26,12 @@ namespace GHTorch.Components
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddIntegerParameter("Size", "S", "Size", GH_ParamAccess.list, 1);
-            pManager.AddBooleanParameter("RequiresGrad", "R", "Requires Grad", GH_ParamAccess.item, false);
-            AddEnumParameter<CreateTensorFunction>(pManager, "TensorFunction", "F", "Create Tensor Function", GH_ParamAccess.item);
+            AddEnumParameter(pManager, "DataType", "T", "Tensor Data Type", GH_ParamAccess.item, TensorOption.DataType.Float32);
+            pManager.AddBooleanParameter("IsSparse", "S", "Layout, True for kSparse, Flase for kStrided", GH_ParamAccess.item, false);
+            pManager.AddBooleanParameter("IsCUDA", "C", "CreateOnCUDA", GH_ParamAccess.item, true);
+            pManager.AddIntegerParameter("CUDAIndex", "I", "CUDAIndex", GH_ParamAccess.item, 0);
+            pManager.AddBooleanParameter("RequiresGrad", "G", "Requires Grad", GH_ParamAccess.item, false);
+
         }
 
         /// <summary>
@@ -36,7 +39,7 @@ namespace GHTorch.Components
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddParameter(new Parameter_Tensor("Tensor", "T", "Tensor to create", GH_ParamAccess.item));
+            pManager.AddParameter(new Parameter_TensorOption("Tensor", "T", "Tensor to create", GH_ParamAccess.item));
         }
 
         /// <summary>
@@ -45,16 +48,19 @@ namespace GHTorch.Components
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            List<int> list = new List<int>();
-            bool require = false;
             int type = 0;
+            bool sparse = false;
+            bool cuda = false;
+            int index = 0;
+            bool grad = false;
 
-            DA.GetDataList(0, list);
-            DA.GetData(1, ref require);
-            DA.GetData(2, ref type);
+            DA.GetData(0, ref type);
+            DA.GetData(1, ref sparse);
+            DA.GetData(2, ref cuda);
+            DA.GetData(3, ref index);
+            DA.GetData(4, ref grad);
 
-
-            DA.SetData(0, new GH_Tensor(Tensor.CreateTensor((CreateTensorFunction) type, require, list.Select(i => (long)i).ToArray())));
+            DA.SetData(0, new GH_TensorOption(new TensorOption((TensorOption.DataType)type, sparse, cuda, index, grad)));
         }
 
         /// <summary>
@@ -75,7 +81,7 @@ namespace GHTorch.Components
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("18E9896C-0FD3-474F-B1AA-2A2D94BAEBC2"); }
+            get { return new Guid("431EA194-804C-44AA-9A9E-3BE930C38E30"); }
         }
     }
 }

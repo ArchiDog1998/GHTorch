@@ -17,7 +17,7 @@ namespace GHTorch.Components
         }
 
         protected static Param_Integer AddEnumParameter<T>
-            (GH_Component.GH_InputParamManager pManager, string name, string nickname, string description, GH_ParamAccess access, int @default = 0) where T : Enum
+            (GH_Component.GH_InputParamManager pManager, string name, string nickname, string description, GH_ParamAccess access, T @default = default(T)) where T : Enum
         {
             Param_Integer param = new Param_Integer();
             param.SetPersistentData(@default);

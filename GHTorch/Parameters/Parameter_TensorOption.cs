@@ -6,19 +6,19 @@ using Rhino.Geometry;
 
 namespace GHTorch.Parameters
 {
-    public class Parameter_Tensor : Parameter_GHTorch<GH_Tensor>
+    public class Parameter_TensorOption : Parameter_GHTorch<GH_TensorOption>
     {
         /// <summary>
-        /// Initializes a new instance of the Parameter_Tensor class.
+        /// Initializes a new instance of the Parameter_TensorOption class.
         /// </summary>
-        public Parameter_Tensor()
-          : base("Tensor", "Tensor",
-              "GHTensor")
+        public Parameter_TensorOption()
+          : base("Tensor Option", "TensorO",
+              "Tensor Option")
         {
         }
 
-        public Parameter_Tensor(string name ,string nickname, string descripiton, GH_ParamAccess access)
-            :base(name, nickname, descripiton, access)
+        public Parameter_TensorOption(string name, string nickname, string descripiton, GH_ParamAccess access)
+            : base(name, nickname, descripiton, access)
         {
 
         }
@@ -41,7 +41,7 @@ namespace GHTorch.Parameters
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("CD242988-A6F3-4263-B6AE-0A1DC7E6347D"); }
+            get { return new Guid("BA17DD59-8697-4D51-8A90-A5774B7940CA"); }
         }
     }
 }

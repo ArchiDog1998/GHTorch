@@ -4,11 +4,18 @@
 #include <iostream>
 
 int main()
-{
-    torch::Tensor tensor = torch::rand({ 2, 3 });
+{ 
+    torch::Tensor tensor = torch::rand({ 3,4 });
+    std::cout << tensor << std::endl;
+    at::indexing::TensorIndex ind = at::indexing::TensorIndex(1);
+    at::indexing::TensorIndex ind2 = at::indexing::TensorIndex(1);
+    //std::initializer_list<at::indexing::TensorIndex> arr = 
+    //    std::initializer_list<at::indexing::TensorIndex>()
+    std::cout << tensor.index({ torch::indexing::Slice(1, torch::indexing::None, 2), 1}) << std::endl;
 
-    std::cout << "Hello" << std::endl;
 }
+
+
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
 // Debug program: F5 or Debug > Start Debugging menu

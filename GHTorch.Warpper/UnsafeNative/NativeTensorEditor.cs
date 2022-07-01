@@ -54,19 +54,16 @@ namespace GHTorch.Wrapper.UnsafeNative
 
         [DllImport(dllName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr DuplicateTensor(IntPtr tensor);
-
         #endregion
 
         #region Delete
         [DllImport(dllName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern void DeleteTensor(IntPtr tensor);
-
         #endregion
 
         #region Modify
         [DllImport(dllName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern IntPtr ChangeTensorOption(
-            IntPtr tensor,
+        internal static extern IntPtr ChangeTensorOption(IntPtr tensor,
             int dtype, bool iskSparse, bool isCuda, int cudaIndex, bool requiresGrad);
 
         [DllImport(dllName, CallingConvention = CallingConvention.Cdecl)]

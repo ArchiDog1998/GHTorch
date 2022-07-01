@@ -13,14 +13,14 @@ namespace GHTorch
         public override Bitmap Icon => null;
 
         //Return a short string describing the purpose of this GHA library.
-        public override string Description => "";
+        public override string Description => "Pytorch in Grasshopper.";
 
         public override Guid Id => new Guid("0A232BBB-06B1-489A-A87A-2BB09608CEF7");
 
         //Return a string identifying you or your company.
-        public override string AuthorName => "";
+        public override string AuthorName => "秋水";
 
         //Return a string representing your preferred contact details.
-        public override string AuthorContact => "";
+        public override string AuthorContact => "0.9.0";
     }
 }

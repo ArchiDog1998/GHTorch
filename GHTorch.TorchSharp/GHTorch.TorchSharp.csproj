@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetExt>.dll</TargetExt>	  
+    <TargetFramework>net48</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Grasshopper" Version="7.0.20314.3001" />
+    <PackageReference Include="TorchSharp" Version="0.96.8" />
+    <PackageReference Include="TorchSharp-cuda-windows" Version="0.96.8" />
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="Copy &quot;$(TargetPath)&quot; &quot;E:\Software\Pytorch\libtorch-win-shared-with-deps-1.11.0+cu113\libtorch\lib\$(ProjectName).dll&quot;" />
+  </Target>
+
+</Project>

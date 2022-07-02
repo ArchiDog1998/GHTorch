@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net48</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- <PackageReference Include="libtorch-cuda-11.3-win-x64" Version="1.11.0.1" /> -->
+    <PackageReference Include="TorchSharp" Version="0.96.8" />
+    <PackageReference Include="TorchSharp-cuda-windows" Version="0.96.8" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GHTorch.TorchSharp\GHTorch.TorchSharp.csproj" />
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="Copy &quot;$(TargetPath)&quot; &quot;E:\Software\Pytorch\libtorch-win-shared-with-deps-1.11.0+cu113\libtorch\lib\$(ProjectName).exe&quot;" />
+  </Target>
+
+</Project>

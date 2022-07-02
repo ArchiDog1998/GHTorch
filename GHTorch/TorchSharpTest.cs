@@ -4,8 +4,6 @@ using System.Runtime.InteropServices;
 using Grasshopper.Kernel;
 using Rhino.Geometry;
 
-using TorchSharp;
-
 namespace GHTorch
 {
     public class TorchSharpTest : GH_Component
@@ -41,7 +39,7 @@ namespace GHTorch
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            DA.SetData(0, torch.rand(new long[] { 2, 3 }));
+            DA.SetData(0, TorchSharp.Test.TestFunc());
         }
         /// <summary>
         /// Provides an Icon for the component.
